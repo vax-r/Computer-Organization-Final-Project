@@ -278,3 +278,19 @@ packet.hh裡面已經把write through需要用到的function寫好了
 ```
 ./build/X86/gem5.opt configs/example/se.py -c ./multiply --cpu-type=TimingSimpleCPU --caches --l2cache --l3cache --l3_assoc=4 --l1i_size=32kB --l1d_size=32kB --l2_size=128kB --l3_size=1MB --mem-type=NVMainMemory --nvmain-config=../NVmain/Config/PCM_ISSCC_2012_4GB.config
 ```
+
+Demo TA's Questions
+---
+1. Q: 這個project是在幹嘛的，目的是甚麼?
+    A: 這個project用gem5模擬cpu跟整個memory system的行為，讓我們實際學習到課堂中各種cache設計的方法與policy造成的影響等等。 
+2. Q: 可以看一下你第2題full way跟2 way運行結果嗎? miss rate哪邊比較高? 為甚麼?
+    A: 我的結果是2 way的miss rate比較高，我認為是正常的，提升cache associativity會使miss rate下降並讓hit rate上升(助教說這題很多人都是做出full way的miss rate比較高，他們也不知道為甚麼)
+3. Q: 可以解釋LFU的原理嗎?
+    A: 會有一個reference bit紀錄該block被接觸的frequency，優先選擇frequency最低的block為victim，如果有相同reference的情況就選擇比較久沒被接觸的那個，跟LRU一樣。
+4. Q: 可以看一下第四題write through跟write back怎麼達成的嗎?
+    A: write back不用改就是了，gem5預設就是write back。write through則是更改base.cc的內容
+5. Q: pkt是甚麼?
+    A: 是用來儲存每個request的相關資訊的一個資料結構
+6. Q: write buffer功能是甚麼? 甚麼情況下write buffer會被清空?
+    A: write buffer是用來儲存要write或read的block到下一層memory之前會先將資料送進write buffer等檢查都完成才會做動作。
+    read miss的時候write buffer會被清空。
