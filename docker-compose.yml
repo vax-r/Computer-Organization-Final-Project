@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  vm:
+    build:
+      context: ./docker-compose
+      dockerfile: Dockerfile.vm
+    image: ubuntu_18
+    stdin_open: 'true'
+    tty: 'true'
+    container_name: ubuntu_1804
+    restart: unless-stopped
+    working_dir: /Richard
+    volumes:
+      - ./:/Richard

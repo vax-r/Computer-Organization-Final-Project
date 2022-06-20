@@ -1,0 +1,11 @@
+FROM ubuntu:18.04
+
+ENV TZ=Asia/Taipei
+
+RUN apt-get update
+RUN apt-get upgrade
+RUN apt install vim -y
+RUN mkdir -p /Richard
+WORKDIR /Richard
+
+CMD ["/bin/bash"]
